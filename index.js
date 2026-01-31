@@ -28,6 +28,27 @@ async function run() {
 
         // collections
         const db = client.db('traveller_db');
+        const usersCollection =  db.collection('users');
+        const destinationsCollection = db.collection('destinations');
+        const feedbacksCollection = db.collection('feedbacks');
+
+        // User related APIs
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            user.role = 'user';
+            user.createdAt = new Date();
+            const email = user.email;
+
+            const isExisting = await usersCollection.findOne({email});
+            if(isExisting) {
+                return res.send({message: 'User already exists'});
+            }
+
+            const result = await usersCollection.insertOne(user);
+            res.send(result);
+        });
+
+        
 
         // await client.db("admin").command({ ping: 1 });
         // console.log("Pinged your deployment. You successfully connected to MongoDB!");
