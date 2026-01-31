@@ -48,6 +48,10 @@ async function run() {
             res.send(result);
         });
 
+        app.get('/users', async(req, res) => {
+            
+        })
+
         // Destination related APIs
         app.get('/popular-destinations', async (req, res) => {
 
