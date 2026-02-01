@@ -58,7 +58,9 @@ async function run() {
         });
 
         app.get('/destinations', async (req, res) => {
-
+            const cursor = destinationsCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
         });
 
         app.post('/destinations', async(req, res) => {
